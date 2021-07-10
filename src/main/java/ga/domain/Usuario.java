@@ -1,22 +1,34 @@
-
 package ga.domain;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
+@Entity
+@NamedQueries({
+  @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u ORDER BY u.id_usuario")
+})
+@Table(name = "usuario")
 public class Usuario implements Serializable{
   private static final long serialVersionUID = 1L;
+  
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id_usuario")
   private int id_usuario;
+  
   private String nombre;
+  
   private String apellido;
+  
   private String email;
+  
   private String telefono;
   
   public Usuario(){
     
   }
 
-  public Usuario(int id_usuario, String nombre, String apellido, String email, String telefono) {
-    this.id_usuario = id_usuario;
+  public Usuario(String nombre, String apellido, String email, String telefono) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.email = email;
@@ -61,6 +73,11 @@ public class Usuario implements Serializable{
 
   public void setTelefono(String telefono) {
     this.telefono = telefono;
+  }
+
+  @Override
+  public String toString() {
+    return "Usuario{" + "id_usuario=" + id_usuario + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono + '}';
   }
   
   
