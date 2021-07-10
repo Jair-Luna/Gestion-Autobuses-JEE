@@ -19,7 +19,7 @@ public class UsuarioDaoImpl implements UsuarioDao{
 
   @Override
   public Usuario findUserById(Usuario usuario) {
-    return em.find(Usuario.class, usuario.getId_usuario());
+    return em.find(Usuario.class, usuario.getIdUsuario());
   }
 
   @Override

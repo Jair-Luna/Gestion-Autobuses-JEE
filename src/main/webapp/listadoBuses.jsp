@@ -4,13 +4,13 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Listado Usuarios</title>
+    <title>Listado Buses</title>
   </head>
   <body>
-    <h1>Listtado Usuarios</h1>
+    <h1>Listado Buses</h1>
     <ul>
-      <c:forEach items="${usuarios}" var="usuario">
-        <li><b>Nombre:</b> ${usuario.nombre} ${usuario.apellido}</li>
+      <c:forEach items="${autobuses}" var="autobus">
+        <li><b>Marca:</b> ${autobus.marca} <b>Modelo:</b> ${autobus.modelo}</li>
       </c:forEach>
     </ul>
   </body>
