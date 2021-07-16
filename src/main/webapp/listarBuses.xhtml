@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f ="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <title>Autobuses</title>
+  </h:head>
+  <h:body>
+    <p:ajaxStatus style="width: 16px; height: 16px;" id="ajaxStatusPanel">
+      <f:facet name="start">
+        <h:graphicImage library="images" name="ajaxloading.gif" />
+      </f:facet>
+      
+      <f:facet name="complete">
+        <h:outputText value="" />
+      </f:facet>
+    </p:ajaxStatus>
+    
+    <h:form prependId="false">
+      <p:growl id="messages" showDetail="true" />
+      
+      <p:dataTable value="#{autobusBean.buses}" var="autobus" editable="true">
+        <f:facet name="header">
+          Listado de autobuses
+        </f:facet>
+        
+        <p:column headerText="Marca">
+          <p:cellEditor>
+            <f:facet name="output">
+              <h:outputText value="#{autobus.marca}" />
+            </f:facet>
+            
+            <f:facet name="input">
+              <p:inputText value="#{autobus.marca}" />
+            </f:facet>
+          </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Modelo">
+          <p:cellEditor>
+            <f:facet name="output">
+              <h:outputText value="#{autobus.modelo}" />
+            </f:facet>
+            
+            <f:facet name="input">
+              <p:inputText value="#{autobus.modelo}" />
+            </f:facet>
+          </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="Matricula">
+          <p:cellEditor>
+            <f:facet name="output">
+              <h:outputText value="#{autobus.matricula}" />
+            </f:facet>
+            
+            <f:facet name="input">
+              <p:inputText value="#{autobus.matricula}" />
+            </f:facet>
+          </p:cellEditor>
+        </p:column>
+        
+        <f:facet name="footer">
+          <h:commandButton value="Regresar" action="index" />
+        </f:facet>
+        
+        <p:column headerText="Opciones" >
+          <p:rowEditor />
+        </p:column>
+        
+        <p:ajax event="rowEdit" listener="#{autobusBean.editListener}" />
+      </p:dataTable>
+    </h:form>
+  </h:body>
+</html>
+
