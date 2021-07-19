@@ -55,5 +55,19 @@ public class AutobusBean {
     this.buses = buses;
   }
   
+  public void agregarAutobus(){
+    this.autobusService.insertarBus(busSeleccionado);
+    this.buses.add(busSeleccionado);
+    this.busSeleccionado = null;
+  }
   
+  public void eliminarAutobus(){
+    this.autobusService.eliminarBus(busSeleccionado);
+    this.buses.remove(this.busSeleccionado);
+    this.busSeleccionado = null;
+  }
+  
+  public void reiniciarAutobus(){
+    this.busSeleccionado = new Autobus();
+  }
 }

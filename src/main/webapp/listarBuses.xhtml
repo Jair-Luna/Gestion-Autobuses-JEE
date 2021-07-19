@@ -1,9 +1,8 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f ="http://java.sun.com/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
   <h:head>
     <title>Autobuses</title>
@@ -13,67 +12,122 @@
       <f:facet name="start">
         <h:graphicImage library="images" name="ajaxloading.gif" />
       </f:facet>
-      
+
       <f:facet name="complete">
         <h:outputText value="" />
       </f:facet>
     </p:ajaxStatus>
-    
-    <h:form prependId="false">
+
+    <h:form id="autobusListForm">
       <p:growl id="messages" showDetail="true" />
-      
-      <p:dataTable value="#{autobusBean.buses}" var="autobus" editable="true">
+
+      <p:messages />
+
+      <p:dataTable id="autobusDataTable" value="#{autobusBean.buses}" var="autobus" editable="true"
+                   rowKey="#{autobus.idAutobus}" selection="#{autobusBean.busSeleccionado}" selectionMode="single">
+        
         <f:facet name="header">
           Listado de autobuses
         </f:facet>
-        
+
+        <p:column headerText="Id">
+          <h:outputText value="#{autobus.idAutobus}" />
+        </p:column>
+
         <p:column headerText="Marca">
           <p:cellEditor>
             <f:facet name="output">
               <h:outputText value="#{autobus.marca}" />
             </f:facet>
-            
+
             <f:facet name="input">
               <p:inputText value="#{autobus.marca}" />
             </f:facet>
           </p:cellEditor>
         </p:column>
-        
+
         <p:column headerText="Modelo">
           <p:cellEditor>
             <f:facet name="output">
               <h:outputText value="#{autobus.modelo}" />
             </f:facet>
-            
+
             <f:facet name="input">
               <p:inputText value="#{autobus.modelo}" />
             </f:facet>
           </p:cellEditor>
         </p:column>
-        
+
         <p:column headerText="Matricula">
           <p:cellEditor>
             <f:facet name="output">
               <h:outputText value="#{autobus.matricula}" />
             </f:facet>
-            
+
             <f:facet name="input">
               <p:inputText value="#{autobus.matricula}" />
             </f:facet>
           </p:cellEditor>
         </p:column>
         
-        <f:facet name="footer">
-          <h:commandButton value="Regresar" action="index" />
-        </f:facet>
+         <p:column headerText="Año">
+          <p:cellEditor>
+            <f:facet name="output">
+              <h:outputText value="#{autobus.anio}" />
+            </f:facet>
+
+            <f:facet name="input">
+              <p:inputText value="#{autobus.anio}" />
+            </f:facet>
+          </p:cellEditor>
+        </p:column>
         
         <p:column headerText="Opciones" >
           <p:rowEditor />
         </p:column>
         
+        <f:facet name="footer">
+          <p:commandButton value="Regresar" style="width:20rem" action="index.xhtml" styleClass="ui-button-danger ui-button-flat p-mr-2 p-mb-2" />
+          
+          <p:commandButton value="Agregar" style="width:20rem" actionListener="#{autobusBean.reiniciarAutobus}"
+                           update=":dialogForm" oncomplete="PF('busDialog').show()" styleClass="p-mb-2" />
+        </f:facet>
+
         <p:ajax event="rowEdit" listener="#{autobusBean.editListener}" />
       </p:dataTable>
+
+      <p:contextMenu for="autobusDataTable">
+        <p:menuitem value="Eliminar" update="autobusListForm:autobusDataTable"
+                    actionListener="#{autobusBean.eliminarAutobus}" />
+      </p:contextMenu>
     </h:form>
+
+    <p:dialog id="autobusDlg" widgetVar="busDialog" header="Agregar autobus" modal="true" 
+              showEffect="fade" hideEffect="fade" width="650" position="fixed">
+      <h:form id="dialogForm">
+        <p:outputPanel id="autobusDetail" style="text-align: center;">
+          <p:panelGrid id="display" columns="4">
+            <h:outputText value="Matricula" />
+            <h:inputText value="#{autobusBean.busSeleccionado.matricula}" />
+
+            <h:outputText value="Marca" />
+            <h:inputText value="#{autobusBean.busSeleccionado.marca}" />
+
+            <h:outputText value="Modelo" />
+            <h:inputText value="#{autobusBean.busSeleccionado.modelo}" />
+
+            <h:outputText value="Año" />
+            <h:inputText value="#{autobusBean.busSeleccionado.anio}" />
+
+            <f:facet name="footer">
+              <p:commandButton value="Agregar" actionListener="#{autobusBean.agregarAutobus}"
+                               update="display,:autobusListForm:autobusDataTable" oncomplete="PF('busDialog').hide()" />
+            </f:facet>
+          </p:panelGrid>
+        </p:outputPanel>
+      </h:form>
+    </p:dialog>
+    
   </h:body>
 </html>
 

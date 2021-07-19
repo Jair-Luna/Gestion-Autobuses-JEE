@@ -3,6 +3,7 @@ package ga.domain;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class Autobus implements Serializable {
   @Size(max = 45)
   private String anio;
   
-  @OneToMany(mappedBy = "autobus")
+  @OneToMany(mappedBy = "autobus", cascade = CascadeType.ALL)
   private List<Usuario> usuarioList;
 
   public Autobus() {
