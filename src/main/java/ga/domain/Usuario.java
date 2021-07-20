@@ -54,11 +54,12 @@ public class Usuario implements Serializable {
     this.idUsuario = idUsuario;
   }
 
-  public Usuario(String nombre, String apellido, String email, String telefono) {
+  public Usuario(String nombre, String apellido, String email, String telefono, Autobus autobus) {
     this.nombre = nombre;
     this.apellido = apellido;
     this.email = email;
     this.telefono = telefono;
+    this.autobus = autobus;
   }
 
   public Integer getIdUsuario() {

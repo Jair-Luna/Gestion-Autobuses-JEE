@@ -5,9 +5,11 @@ import ga.domain.Autobus;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.jws.WebService;
 
 @Stateless
-public class AutobusServiceImpl implements AutobusService{
+@WebService(endpointInterface = "ga.service.AutobusServiceWs")
+public class AutobusServiceImpl implements AutobusService, AutobusServiceRemote, AutobusServiceWs{
 
   @Inject
   private AutobusDao autobusDao;

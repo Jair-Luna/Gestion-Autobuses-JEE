@@ -13,6 +13,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @NamedQueries({
@@ -22,6 +26,8 @@ import javax.validation.constraints.Size;
   @NamedQuery(name = "Autobus.findByMarca", query = "SELECT a FROM Autobus a WHERE a.marca = :marca"),
   @NamedQuery(name = "Autobus.findByModelo", query = "SELECT a FROM Autobus a WHERE a.modelo = :modelo"),
   @NamedQuery(name = "Autobus.findByAnio", query = "SELECT a FROM Autobus a WHERE a.anio = :anio")})
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class Autobus implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -44,6 +50,7 @@ public class Autobus implements Serializable {
   @Size(max = 45)
   private String anio;
   
+  @XmlTransient
   @OneToMany(mappedBy = "autobus", cascade = CascadeType.ALL)
   private List<Usuario> usuarioList;
 
