@@ -87,16 +87,16 @@
         </p:column>
         
         <f:facet name="footer">
-          <p:commandButton value="Regresar" style="width:20rem" action="index.xhtml" styleClass="ui-button-danger ui-button-flat p-mr-2 p-mb-2" />
+          <p:linkButton value="Regresar" style="width:10rem; margin: 5px;" outcome="index" styleClass="ui-button-danger ui-button-flat" />
           
-          <p:commandButton value="Agregar" style="width:20rem" actionListener="#{autobusBean.reiniciarAutobus}"
-                           update=":dialogForm" oncomplete="PF('busDialog').show()" styleClass="p-mb-2" />
+          <p:commandButton value="Agregar" style="width:10rem; margin: 5px;" actionListener="#{autobusBean.reiniciarAutobus}"
+                           update=":dialogForm" oncomplete="PF('busDialog').show()" styleClass="p-mb-2" rendered="#{p:ifGranted('ROLE_ADMIN')}"/>
         </f:facet>
 
         <p:ajax event="rowEdit" listener="#{autobusBean.editListener}" />
       </p:dataTable>
 
-      <p:contextMenu for="autobusDataTable">
+      <p:contextMenu for="autobusDataTable" rendered="#{p:ifGranted('ROLE_ADMIN')}">
         <p:menuitem value="Eliminar" update="autobusListForm:autobusDataTable"
                     actionListener="#{autobusBean.eliminarAutobus}" />
       </p:contextMenu>

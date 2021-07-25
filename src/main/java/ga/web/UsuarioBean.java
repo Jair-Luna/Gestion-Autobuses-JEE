@@ -1,6 +1,7 @@
 
 package ga.web;
 
+import ga.domain.Autobus;
 import ga.domain.Usuario;
 import ga.service.UsuarioService;
 import java.util.List;
@@ -19,13 +20,15 @@ public class UsuarioBean {
   Logger log = LogManager.getRootLogger();
   
   @Inject
-  private UsuarioService usuarioService;
+  private UsuarioService usuarioService;  
   
   private Usuario usuarioSeleccionado;
+  private Autobus autobus;
+  
   List<Usuario> usuarios;
   
   public UsuarioBean(){
-        
+    
   }
   
   @PostConstruct
@@ -37,6 +40,22 @@ public class UsuarioBean {
   public void editListener(RowEditEvent event){
     Usuario usuario = (Usuario) event.getObject();
     usuarioService.modificarUsuario(usuario);
+  }
+  
+  public void agregarUsuario(){
+    usuarioService.insertarUsuario(usuarioSeleccionado);
+    this.usuarios.add(usuarioSeleccionado);
+    this.usuarioSeleccionado = null;
+  }
+  
+  public void eliminarUsuario(){
+    this.usuarioService.eliminarUsuario(usuarioSeleccionado);
+    this.usuarios.remove(this.usuarioSeleccionado);
+    this.usuarioSeleccionado = null;
+  }
+  
+  public void reiniciarUsuario(){
+    this.usuarioSeleccionado = null;
   }
 
   public Usuario getUsuarioSeleccionado() {
@@ -54,5 +73,14 @@ public class UsuarioBean {
   public void setUsuarios(List<Usuario> usuarios) {
     this.usuarios = usuarios;
   }
+
+  public Autobus getAutobus() {
+    return autobus;
+  }
+
+  public void setAutobus(Autobus autobus) {
+    this.autobus = autobus;
+  }
+
   
 }
